@@ -30,9 +30,9 @@ class TagSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
     category = CategorySerializer(read_only=True)
-    category_id = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all(), source='category', write_only=True)
+    category_id = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all(), source='category', write_only=True, required=False, allow_null=True)
     tags = TagSerializer(many=True, read_only=True)
-    tag_ids = serializers.PrimaryKeyRelatedField(queryset=Tag.objects.all(), source='tags', many=True, write_only=True)
+    tag_ids = serializers.PrimaryKeyRelatedField(queryset=Tag.objects.all(), source='tags', many=True, write_only=True, required=False)
     comments = serializers.StringRelatedField(many=True, read_only=True)
     likes_count = serializers.SerializerMethodField()
     is_liked = serializers.SerializerMethodField()
