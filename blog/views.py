@@ -27,6 +27,9 @@ class AuthorProfileViewSet(ModelViewSet):
     queryset = AuthorProfile.objects.select_related('user').all()
     serializer_class = AuthorProfileSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
