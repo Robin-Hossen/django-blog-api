@@ -21,6 +21,7 @@ from rest_framework.viewsets import ModelViewSet
 class UserViewSet(ModelViewSet):
     queryset = User.objects.select_related('profile').all()
     serializer_class = UserSerializer
+    permission_classes = [AllowAny]
 
 class AuthorProfileViewSet(ModelViewSet):
     queryset = AuthorProfile.objects.select_related('user').all()
