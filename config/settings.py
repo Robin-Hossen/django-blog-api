@@ -41,7 +41,12 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:8000",
+    "https://blogfrontend-five-psi.vercel.app",
 ]
+
+FRONTEND_URL = os.environ.get('FRONTEND_URL', '').rstrip('/')
+if FRONTEND_URL and FRONTEND_URL not in CORS_ALLOWED_ORIGINS:
+    CORS_ALLOWED_ORIGINS.append(FRONTEND_URL)
 
 ROOT_URLCONF = 'config.urls'
 
