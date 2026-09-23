@@ -44,6 +44,9 @@ CORS_ALLOWED_ORIGINS = [
     "https://blogfrontend-five-psi.vercel.app",
 ]
 
+# Allow any deployed Vercel frontend subdomain (project previews change subdomains)
+CORS_ALLOWED_ORIGIN_REGEXES = [r"^https://[a-z0-9-]+\.vercel\.app$"]
+
 FRONTEND_URL = os.environ.get('FRONTEND_URL', '').rstrip('/')
 if FRONTEND_URL and FRONTEND_URL not in CORS_ALLOWED_ORIGINS:
     CORS_ALLOWED_ORIGINS.append(FRONTEND_URL)
