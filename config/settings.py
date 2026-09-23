@@ -72,10 +72,13 @@ DATABASE_URL = os.environ.get('DATABASE_URL')
 DIRECT_URL = os.environ.get('DIRECT_URL')
 
 if DATABASE_URL:
+    # Vercel is serverless: persistent DB connections die between invocations
+    # and cause "connection already closed" 500 errors. Keep max_age=0 there.
+    on_vercel = bool(os.environ.get('VERCEL'))
     DATABASES = {
         'default': dj_database_url.config(
             default=DIRECT_URL if 'migrate' in sys.argv else DATABASE_URL,
-            conn_max_age=600,
+            conn_max_age=0 if on_vercel else 600,
             ssl_require=True
         )
     }
